@@ -2,15 +2,20 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
-    DB_HOST: str = '0.0.0.0'
-    DB_PORT: int = 5432
-    DB_USER: str = 'postgres'
-    DB_PASSWORD: str = 'password'
-    DB_NAME: str = 'pomodoro'
-    DB_DRIVER: str = 'postgresql+psycopg2'
-    CACHE_HOST: str = '0.0.0.0'
-    CACHE_PORT: int = 6379
-    CACHE_DB: int = 0
+    DB_HOST: str
+    DB_PORT: int
+    DB_USER: str
+    DB_PASSWORD: str
+    DB_NAME: str
+    DB_DRIVER: str
+    CACHE_HOST: str
+    CACHE_PORT: int
+    CACHE_DB: int
+    JWT_SECRET: str
+    JWT_ENCODE_ALGORITHM: str
+
+    class Config:
+        env_file = '.local.env'
 
     @property
     def db_url(self) -> str:
