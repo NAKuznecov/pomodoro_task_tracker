@@ -15,7 +15,7 @@ class UserRepository:
 
     def get_user_by_email(self, email: str) -> UserProfile | None:
         query = select(UserProfile).where(UserProfile.email == email )
-        with self.db_session as session:
+        with self.db_session() as session:
             return session.execute(query).scalar_one_or_none()
 
 
