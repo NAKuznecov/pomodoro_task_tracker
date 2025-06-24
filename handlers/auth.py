@@ -1,6 +1,7 @@
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, HTTPException
+from fastapi.responses import RedirectResponse
 from starlette import status
 
 from dependency import get_auth_service
@@ -34,3 +35,25 @@ async def login(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail=e.detail,
         )
+
+
+# Гугл авторизация через OAuth2
+@router.get(
+    "api/v1/login/google",
+)
+async def google_login(
+        auth_service: Annotated[AuthService, Depends(get_auth_service)],
+):
+    redirect_url = auth_service.get_google_redirect_url()
+    print(redirect_url)
+    return RedirectResponse(redirect_url)
+
+
+@router.get(
+    "api/v1/oauth/google",
+)
+async def google_auth(
+        auth_service: Annotated[AuthService, Depends(get_auth_service)],
+        code: str
+):
+    return auth_service.google_auth(code=code)

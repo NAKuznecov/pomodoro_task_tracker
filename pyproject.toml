@@ -16,6 +16,7 @@ psycopg2-binary = "^2.9.10"
 redis = "^6.2.0"
 psycopg = "^3.2.9"
 python-jose = {extras = ["cryptography"], version = "^3.5.0"}
+requests = "^2.32.4"
 
 
 [build-system]
