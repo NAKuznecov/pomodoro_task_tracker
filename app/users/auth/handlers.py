@@ -40,7 +40,7 @@ async def login(
 
 # Гугл авторизация через OAuth2
 @router.get(
-    "api/v1/login/google",
+    "/api/v1/login/google",
 )
 async def google_login(
         auth_service: Annotated[AuthService, Depends(get_auth_service)],
@@ -50,14 +50,14 @@ async def google_login(
     return RedirectResponse(redirect_url)
 
 
-@router.get(
-    "api/v1/oauth/google",
-)
-async def google_auth(
-        auth_service: Annotated[AuthService, Depends(get_auth_service)],
-        code: str
-):
-    return auth_service.google_auth(code=code)
+# @router.get(
+#     "/api/v1/oauth/google",
+# )
+# async def google_auth(
+#         auth_service: Annotated[AuthService, Depends(get_auth_service)],
+#         code: str
+# ):
+#     return auth_service.google_auth(code=code)
 
 
 @router.get(
@@ -73,7 +73,7 @@ async def yandex_login(
 
 
 @router.get(
-    "auth/yandex"
+    "/yandex"
 )
 async def yandex_auth(
         auth_service: Annotated[AuthService, Depends(get_auth_service)],

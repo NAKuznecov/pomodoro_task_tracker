@@ -1,3 +1,5 @@
+from typing import Optional
+
 from pydantic import BaseModel, Field
 
 
@@ -7,16 +9,16 @@ class UserLoginSchema(BaseModel):
 
 
 class GoogleUserData(BaseModel):
-    id: int
-    email: str
+    id: int = Field(..., alias="_id")
+    email: str = Field(..., alias="email")
     verified_email: bool = Field(alias='verified_email')
-    name: str
-    access_token: str
+    name: str = Field(..., alias='name')
+    access_token: str = Field(..., alias='access_token')
 
 
 class YandexUserData(BaseModel):
-    id: int
-    login: str
+    id: int = Field(alias='id')
+    login: str = Field(alias='login')
     name: str = Field(alias='real_name')
-    default_email: str
-    access_token: str
+    default_email: str = Field(alias='default_email')
+    access_token: str = Field(alias='access_token')
