@@ -17,8 +17,8 @@ class GoogleUserData(BaseModel):
 
 
 class YandexUserData(BaseModel):
-    id: int = Field(alias='id')
-    login: str = Field(alias='login')
+    id: int
+    login: str
     name: str = Field(alias='real_name')
-    default_email: str = Field(alias='default_email')
-    access_token: str = Field(alias='access_token')
+    default_email: str
+    access_token: str
