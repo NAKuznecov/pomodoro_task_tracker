@@ -6,8 +6,11 @@ SHELL := bash
 HOST ?= 0.0.0.0
 PORT ?= 8000
 
-run: ## Run the application using uvicorn with provided arguments or defaults
+run-uvicorn: ## Run the application using uvicorn with provided arguments or defaults
 	poetry run uvicorn app.main:app --host $(HOST) --port $(PORT) --reload --env-file .local.env
+
+run:
+	poetry run gunicorn app.main:app --worker-class uvicorn.workers.UvicornWorker -c gunicorn_conf.py
 
 install:  ## Install a dependency using poetry
 	@echo "Installing dependency $(LIBRARY)"
