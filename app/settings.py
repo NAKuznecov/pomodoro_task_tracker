@@ -11,15 +11,15 @@ class Settings(BaseSettings):
     CACHE_HOST: str
     CACHE_PORT: int
     CACHE_DB: int
-    JWT_SECRET: str
+    JWT_SECRET_KEY: str
     JWT_ENCODE_ALGORITHM: str
-    GOOGLE_CLIENT_ID: str = ''
-    GOOGLE_SECRET_KEY: str = ''
-    GOOGLE_REDIRECT_URI: str = ''
+    GOOGLE_CLIENT_ID: str
+    GOOGLE_SECRET_KEY: str
+    GOOGLE_REDIRECT_URI: str = 'http://localhost:8000/api/v1/oauth/google'
     GOOGLE_TOKEN_URL: str = "https://accounts.google.com/o/oauth2/token"
-    YANDEX_CLIENT_ID: str = ''
-    YANDEX_SECRET_KEY: str = ''
-    YANDEX_REDIRECT_URI: str = ''
+    YANDEX_CLIENT_ID: str
+    YANDEX_SECRET_KEY: str
+    YANDEX_REDIRECT_URI: str = 'http://localhost:8000/auth/yandex'
     YANDEX_TOKEN_URL: str = "https://oauth.yandex.ru/token"
 
     class Config:
