@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 import httpx
 
-from app.settings import Settings
 from app.users.auth.schema import GoogleUserData
+from app.settings import Settings
 
 
 @dataclass
@@ -10,15 +10,13 @@ class GoogleClient:
     settings: Settings
     async_client: httpx.AsyncClient
 
-    async def get_user_info(self, code: str) -> GoogleUserData :
-        access_token = await self._get_user_access_token(code)
+    async def get_user_info(self, code: str) -> GoogleUserData:
+        access_token = await self._get_user_access_token(code=code)
         async with self.async_client as client:
             user_info = await client.get(
-                "https://www.googleapis.com/oauth2/v3/tokeninfo",
-                headers={"Authorization": f"Bearer {access_token}"},
+                "https://www.googleapis.com/oauth2/v3/userinfo", headers={"Authorization": f"Bearer {access_token}"}
             )
         return GoogleUserData(**user_info.json(), access_token=access_token)
-
 
     async def _get_user_access_token(self, code: str) -> str:
         data = {
@@ -30,5 +28,4 @@ class GoogleClient:
         }
         async with self.async_client as client:
             response = await client.post(self.settings.GOOGLE_TOKEN_URL, data=data)
-            print(response.json())
-        return response.json()
+        return response.json()["access_token"]
